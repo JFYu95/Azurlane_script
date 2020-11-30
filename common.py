@@ -54,10 +54,10 @@ def entrust_cutin(entrust,ensure):
     print("entrust cutin")
     return True
 
-def new_ship(newship):
-    if not scan(newship):
+def new_ship(newship,newship1):
+    if not scan(newship) and not scan(newship1):
         return False
-    if not step(newship,5,(0,200)):
+    if not step(newship,5,(0,200)) and not step(newship1,5,(0,200)):
         return False
     print("new ship")
     return True

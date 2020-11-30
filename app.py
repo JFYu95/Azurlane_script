@@ -5,7 +5,7 @@ from battle import *
 def main():
     wait_time = 3
     # n = 5
-    for t in range(6):
+    for t in range(30):
         # 进图
         print('times:',t)
         if not enter_field(wait_time):
@@ -16,8 +16,8 @@ def main():
     
 
         # 地图位置校准
-        mouse_click((1600*0.8,206*0.8))
-        mouse_drag((-420,0))
+        # mouse_click((1600*0.8,206*0.8))
+        # mouse_drag((-420,0))
 
         # 优先精英怪，道中n战
         for i in range(5):
@@ -32,8 +32,8 @@ def main():
         time.sleep(2.5)
 
         # # 地图位置校准
-        mouse_click((1650*0.8,206*0.8))
-        mouse_drag((-560,0))
+        # mouse_click((1650*0.8,206*0.8))
+        # mouse_drag((-560,0))
         time.sleep(1)
 
         # if not normal_battle(wait_time):

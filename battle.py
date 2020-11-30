@@ -3,7 +3,7 @@ from common import *
 import time
 
 # config
-aim = cv2.imread('./pic/map/sp3.png')
+aim = cv2.imread('./pic/map/sp4.png')
 
 go = cv2.imread('./pic/button/go.png')
 success = cv2.imread('./pic/button/continue.png')
@@ -13,19 +13,25 @@ switch = cv2.imread('./pic/button/switch.png')
 entrust = cv2.imread('./pic/button/entrust.png')
 ensure = cv2.imread('./pic/button/ensure.png')
 newship = cv2.imread('./pic/button/new.png')
+newship1 = cv2.imread('./pic/button/new1.png')
 notarrive = cv2.imread('./pic/button/notarrive.png')
 space = cv2.imread('./pic/enemy/space.png')
 
 normals = []
-normals.append(cv2.imread('./pic/enemy/defence.png'))
+normals.append(cv2.imread('./pic/enemy/main3.png'))
+normals.append(cv2.imread('./pic/enemy/defence3.png'))
+normals.append(cv2.imread('./pic/enemy/air3.png'))
 elites = []
-
 elites.append(cv2.imread('./pic/enemy/elite1.png'))
 elites.append(cv2.imread('./pic/enemy/elite2.png'))
+elites.append(cv2.imread('./pic/enemy/elite3.png'))
+elites.append(cv2.imread('./pic/enemy/elite4.png'))
+elites.append(cv2.imread('./pic/enemy/elite5.png'))
+elites.append(cv2.imread('./pic/enemy/elite6.png'))
 
 boss = []
-# boss.append(cv2.imread('./pic/enemy/boss2.png'))
-boss.append(cv2.imread('./pic/enemy/boss.png'))
+boss.append(cv2.imread('./pic/enemy/boss2.png'))
+boss.append(cv2.imread('./pic/enemy/boss1.png'))
 
 def fail():
     input("识别失败，Press Enter to continue...")
@@ -74,8 +80,9 @@ def find_normal_enemy():
 
 def wait_battle():
     while True:
-        if move(success):
-            break;
+        if scan(success):
+            move(success)
+            break
         time.sleep(2)
     # 再判断战斗结束
     time.sleep(1)
@@ -92,7 +99,7 @@ def battle_finish(wait_time):
     time.sleep(0.3)
     if not step(finish, wait_time):
         print("可能出现新船")
-        if not new_ship(newship):
+        if not new_ship(newship, newship1):
             print("error")
             # return False
             fail()
