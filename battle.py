@@ -1,37 +1,7 @@
 from move import *
 from common import *
+from config import *
 import time
-
-# config
-aim = cv2.imread('./pic/map/sp4.png')
-
-go = cv2.imread('./pic/button/go.png')
-success = cv2.imread('./pic/button/continue.png')
-item = cv2.imread('./pic/button/item.png')
-finish = cv2.imread('./pic/button/yes.png')
-switch = cv2.imread('./pic/button/switch.png')
-entrust = cv2.imread('./pic/button/entrust.png')
-ensure = cv2.imread('./pic/button/ensure.png')
-newship = cv2.imread('./pic/button/new.png')
-newship1 = cv2.imread('./pic/button/new1.png')
-notarrive = cv2.imread('./pic/button/notarrive.png')
-space = cv2.imread('./pic/enemy/space.png')
-
-normals = []
-normals.append(cv2.imread('./pic/enemy/main3.png'))
-normals.append(cv2.imread('./pic/enemy/defence3.png'))
-normals.append(cv2.imread('./pic/enemy/air3.png'))
-elites = []
-elites.append(cv2.imread('./pic/enemy/elite1.png'))
-elites.append(cv2.imread('./pic/enemy/elite2.png'))
-elites.append(cv2.imread('./pic/enemy/elite3.png'))
-elites.append(cv2.imread('./pic/enemy/elite4.png'))
-elites.append(cv2.imread('./pic/enemy/elite5.png'))
-elites.append(cv2.imread('./pic/enemy/elite6.png'))
-
-boss = []
-boss.append(cv2.imread('./pic/enemy/boss2.png'))
-boss.append(cv2.imread('./pic/enemy/boss1.png'))
 
 def fail():
     input("识别失败，Press Enter to continue...")
@@ -42,7 +12,7 @@ def enter_field(wait_time):
         # return False
         fail()
     # 关卡图
-    time.sleep(0.3)
+    # time.sleep(0.3)
     if not step(go, wait_time):
         # return False
         fail()
@@ -54,22 +24,29 @@ def enter_field(wait_time):
             # return False
             fail()
         # 关卡图
-        time.sleep(0.3)
+        # time.sleep(0.3)
         if not step(go, wait_time):
             # return False
             fail()
     # 配置界面
-    time.sleep(0.3)
+    # time.sleep(0.3)
     if not step(go, wait_time):
         # return False
         fail()
-    time.sleep(0.5)
+    # time.sleep(0.5)
     entrust_cutin(entrust,ensure)
     return True
 
 def find_normal_enemy():
+    global e_n_count
+    # print (e_n_count)
     find_elite = True
-    if not attack_step(elites,wait_time=1):
+    if e_n_count[0] < 3:
+        if not attack_step(elites):
+            find_elite = False
+        if find_elite:
+            e_n_count[0] += 1
+    else:
         find_elite = False
     if not find_elite:
         if not attack_step(normals):
@@ -85,19 +62,22 @@ def wait_battle():
             break
         time.sleep(2)
     # 再判断战斗结束
-    time.sleep(1)
-    move(success)
+    time.sleep(0.3)
+    while scan(success):
+        move(success)
+        time.sleep(0.3)
+    # time.sleep(1)
+    # move(success)
 
 def battle_finish(wait_time):
     # 获得道具
-    time.sleep(0.3)
+    # time.sleep(0.3)
     if not step(item, wait_time):
-        # return False
         fail()
   
     # 经验结算
     time.sleep(0.3)
-    if not step(finish, wait_time):
+    if not step(finish, 1):
         print("可能出现新船")
         if not new_ship(newship, newship1):
             print("error")
@@ -106,10 +86,10 @@ def battle_finish(wait_time):
         if not step(finish, wait_time):
             # return 
             fail()
-    time.sleep(0.3)
-    if not move(finish):
+    # time.sleep(0.3)
+    # if not move(finish):
         # return False
-        pass
+        # pass
 
     return True
 
@@ -122,7 +102,7 @@ def normal_battle(wait_time):
     time.sleep(9)
     # 是否满船坞，清理
     if clear_ship():
-        time.sleep(4)
+        time.sleep(2)
         if not step(yingji, wait_time):
             print("迎击失败")
             # return False
@@ -148,7 +128,7 @@ def boss_battle(wait_time):
     time.sleep(6)
     # 是否满船坞，清理
     if clear_ship():
-        time.sleep(4)
+        time.sleep(2)
         if not step(yingji, wait_time):
             print("迎击失败")
             # return False
@@ -160,6 +140,6 @@ def boss_battle(wait_time):
         print("123")
         return False
     # 结束
-    time.sleep(5)
+    time.sleep(7)
     entrust_cutin(entrust,ensure)
     return True

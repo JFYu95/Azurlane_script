@@ -1,15 +1,7 @@
 from move import *
+from config import *
 import time
 
-# 一键清理船坞
-full = cv2.imread('./pic/button/full.png')
-zhengli = cv2.imread('./pic//button/zhengli.png')
-tuiyi = cv2.imread('./pic/button/tuiyi.png')
-queding = cv2.imread('./pic/button/queding.png')
-daoju = cv2.imread('./pic/button/daoju.png')
-none = cv2.imread('./pic/button/none.png')
-yingji = cv2.imread('./pic/button/yingji.png')
-quxiao = cv2.imread('./pic/button/quxiao.png')
 
 # 清理船坞
 def clear_ship():
@@ -17,7 +9,7 @@ def clear_ship():
         return False
     if not step(zhengli):
         return False
-    time.sleep(0.5)
+    # time.sleep(0.5)
     while True:
         if not step(tuiyi):
             return False
@@ -26,19 +18,19 @@ def clear_ship():
             break
         if not step(queding):
             return False
-        time.sleep(0.5)
+        # time.sleep(0.5)
         if not step(daoju):
             return False
-        time.sleep(0.5)
+        # time.sleep(0.5)
         if not step(queding):
             return False
-        time.sleep(0.5)
+        # time.sleep(0.5)
         if not step(queding):
             return False
-        time.sleep(0.5)
+        # time.sleep(0.5)
         if not step(daoju):
             return False
-        time.sleep(0.5)
+        # time.sleep(0.5)
 
     if not step(quxiao):
         return False
